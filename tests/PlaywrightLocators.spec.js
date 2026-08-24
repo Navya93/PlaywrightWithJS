@@ -47,10 +47,10 @@ test('TC04', async ({ page }) => {
     await page.getByRole('radio', { name: 'Female' }).check();
     await page.getByLabel('First name:').fill('Navya');
     await page.getByLabel('Last name:').fill('M');
-    await page.getByLabel('Email:').fill('navya.m@example.com');
+    await page.getByLabel('Email:').fill('navya');
     await page.getByLabel('Password:').first().fill('Password123');
     await page.getByLabel('Confirm password:').fill('Password1234');
     await page.locator('#register-button').click();
-    await expect.soft(page.locator('.field-validation-error')).toHaveText('The password and confirmation password do not match.');
-    
+    await expect.soft(page.locator('.field-validation-error').first()).toHaveText('Wrong email');
+    await expect.soft(page.locator('.field-validation-error').last()).toHaveText('The password and confirmation password do not match.'); 
 });
