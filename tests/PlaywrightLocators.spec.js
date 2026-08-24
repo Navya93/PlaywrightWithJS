@@ -54,3 +54,15 @@ test('TC04', async ({ page }) => {
     await expect.soft(page.locator('.field-validation-error').first()).toHaveText('Wrong email');
     await expect.soft(page.locator('.field-validation-error').last()).toHaveText('The password and confirmation password do not match.'); 
 });
+
+test('TC05', async ({ page }) => {
+    await page.goto('https://demowebshop.tricentis.com/?utm_source=chatgpt.com');
+    await page.locator('#small-searchterms').fill('14.1-inch Laptop');
+    await page.press('#small-searchterms', 'Enter');
+    await page.getByAltText('Picture of 14.1-inch Laptop').click();
+    await expect.soft(page.getByRole('heading', { name: '14.1-inch Laptop' })).toBeVisible();
+    await expect.soft(page.getByAltText('Picture of 14.1-inch Laptop')).toBeVisible();
+    await expect.soft(page.locator('.price-value-31')).toHaveText('1590.00');
+    await expect.soft(page.getByRole('button', { name: 'Add to cart' }).first()).toBeVisible();
+    await expect.soft(page.locator('.short-description')).toContainText('Unique Asian-influenced imprint wraps the laptop both inside and out');
+});
